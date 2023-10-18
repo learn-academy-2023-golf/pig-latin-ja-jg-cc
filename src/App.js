@@ -68,6 +68,11 @@ const App = () => {
           eachWord.slice(eachWord.indexOf("y")) +
           eachWord.slice(0, eachWord.indexOf("y")) +
           "ay";
+      } else {
+        eachWord =
+          eachWord.slice(eachWord.indexOf(...vowelsArray)) +
+          eachWord.slice(0, eachWord.indexOf(...vowelsArray)) +
+          "ay";
       }
       // Check if word contains no vowels. Check if word contains "y". Move all letters before "y" to after it and add "ay".
 
