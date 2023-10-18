@@ -3,13 +3,9 @@ import "./App.css";
 import butcherPigImage from "./assets/butcherPig.jpeg";
 
 const App = () => {
-  // ACTION ITEM: to make the development process easier there are some preassigned words in the input field, when you are ready for your full user experience delete the test words passed to useState and pass an empty string
-  const [userInput, setUserInput] = useState(
-    "apple through queen squeal fry fluent"
-  );
+  const [userInput, setUserInput] = useState("");
   const [inputTranslated, setInputTranslated] = useState("");
 
-  // ACTION ITEM: the "myPigLatinCodeHere" function is where you will put your logic to translate the sentence entered by the user into Pig Latin
   const myPigLatinCodeHere = () => {
     // NO MODIFICATION NEEDED: the variable "arrayOfUserInput" will contain the text input from the user split into an array of words
     const arrayOfUserInput = userInput.split(" ");
@@ -20,6 +16,7 @@ const App = () => {
       console.log("eachWord:", eachWord);
 
       // NO MODIFICATION NEEDED: this code will look at each word and identify the vowels
+      eachWord = eachWord.toLowerCase()
       const vowelsArray = eachWord.split("").filter((vowel) => {
         return (
           vowel === "a" ||
@@ -30,20 +27,10 @@ const App = () => {
         );
       });
       console.log("vowelsArray:", vowelsArray);
+      console.log(...vowelsArray)
 
       // ACTION ITEM: your Pig Latin logic goes here!
-
-      console.log("test1", eachWord.indexOf("qu"));
-      console.log("test2", eachWord.indexOf(...vowelsArray));
-      console.log(
-        "test3",
-        eachWord.slice(eachWord.indexOf(...vowelsArray) + 1)
-      );
-      console.log(
-        "test4",
-        eachWord.slice(0, eachWord.indexOf(...vowelsArray) + 1)
-      );
-
+      // Checking if the word starts with a vowel and adding "way" to the end if it does.
       if (
         eachWord[0] === "a" ||
         eachWord[0] === "e" ||
@@ -52,6 +39,7 @@ const App = () => {
         eachWord[0] === "u"
       ) {
         eachWord = eachWord.concat("way");
+        // Checking if the word starts with "qu" or if "qu" comes before the first vowell and then moving everything before the letter after "qu" to the end of the word and adding "ay".
       } else if (
         eachWord.indexOf("qu") < eachWord.indexOf(...vowelsArray) &&
         eachWord.indexOf("qu") !== -1
@@ -60,6 +48,7 @@ const App = () => {
           eachWord.slice(eachWord.indexOf(...vowelsArray) + 1) +
           eachWord.slice(0, eachWord.indexOf(...vowelsArray) + 1) +
           "ay";
+        // Checking if the only vowel in the word is "y" and moving everything from before the "y" to the end of the word and adding "ay".
       } else if (
         eachWord.indexOf(...vowelsArray) === -1 &&
         eachWord.indexOf("y") !== -1
@@ -68,16 +57,14 @@ const App = () => {
           eachWord.slice(eachWord.indexOf("y")) +
           eachWord.slice(0, eachWord.indexOf("y")) +
           "ay";
+        // If word meets no prior criteria, finding the first vowel and moving everything before the vowel to the end of the word and adding "ay".
       } else {
         eachWord =
           eachWord.slice(eachWord.indexOf(...vowelsArray)) +
           eachWord.slice(0, eachWord.indexOf(...vowelsArray)) +
           "ay";
       }
-      // Check if word contains no vowels. Check if word contains "y". Move all letters before "y" to after it and add "ay".
-
-      // ACTION ITEM: this return will be the output of your Pig Latin'd code
-      return eachWord;
+      return eachWord
     });
 
     // NO MODIFICATION NEEDED: once the code has been modified it gets joined from an array back to a string
@@ -88,9 +75,8 @@ const App = () => {
     setInputTranslated(translatedWords);
   };
 
-  // ACTION ITEM: this method restarts the game by setting the original state, when you are ready for your full user experience delete the test words in setUserInput and pass an empty string
   const restartGame = () => {
-    setUserInput("apple through queen squeal fry fluent");
+    setUserInput("");
     setInputTranslated("");
   };
 
@@ -129,9 +115,16 @@ const App = () => {
         </div>
         <p>{inputTranslated}</p>
       </div>
-      <footer>&copy; 2023 | Coded by: Your Names Here!</footer>
+      <footer>&copy; 2023 | Coded by: Jacob, Jeffrey, & Corey</footer>
     </div>
   );
 };
 
 export default App;
+
+
+// array = [1, 2, 3, 4, 5]
+// array[0] "1"
+// array[0], array[1], array[2], array[3], array[4] "1", "2", "3", "4", "5"
+// ...array "1", "2", "3", "4", "5"
+// ...array + ...array
